@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b14">
+<title>PTJ AI</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:#080b14;
+  color:white;
+  font-family:Arial,sans-serif;
+}
+
+header{
+  text-align:center;
+  padding:28px 15px 18px;
+}
+
+.logo{
+  font-size:42px;
+}
+
+h1{
+  margin:5px 0;
+  font-size:30px;
+}
+
+.subtitle{
+  color:#9da7bd;
+  font-size:14px;
+}
+
+main{
+  width:92%;
+  max-width:650px;
+  margin:auto;
+}
+
+.chat{
+  background:#111725;
+  border:1px solid #263047;
+  border-radius:16px;
+  padding:15px;
+  min-height:420px;
+  max-height:60vh;
+  overflow-y:auto;
+}
+
+.message{
+  padding:12px 14px;
+  margin:10px 0;
+  border-radius:13px;
+  line-height:1.5;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+
+.ai{
+  background:#182033;
+  border:1px solid #2a3752;
+}
+
+.user{
+  background:#263047;
+  margin-left:12%;
+}
+
+.label{
+  font-size:12px;
+  color:#9da7bd;
+  margin-bottom:4px;
+}
+
+.input-box{
+  background:#111725;
+  border:1px solid #263047;
+  border-radius:16px;
+  padding:12px;
+  margin:15px 0;
+}
+
+textarea{
+  width:100%;
+  height:75px;
+  resize:none;
+  background:#0b1020;
+  color:white;
+  border:1px solid #303b55;
+  border-radius:11px;
+  padding:12px;
+  font-size:15px;
+  outline:none;
+}
+
+button{
+  width:100%;
+  margin-top:9px;
+  padding:13px;
+  border:0;
+  border-radius:11px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.send{
+  background:white;
+  color:#080b14;
+}
+
+.clear{
+  background:#263047;
+  color:white;
+}
+
+.status{
+  text-align:center;
+  color:#7f8aa0;
+  font-size:12px;
+  padding:8px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🤖</div>
+  <h1>PTJ AI</h1>
+  <div class="subtitle">Personal AI Assistant</div>
+</header>
+
+<main>
+
+  <div class="chat" id="chat">
+    <div class="message ai">
+      <div class="label">PTJ AI</div>
+      হ্যালো! 👋<br>
+      আমি PTJ AI। আমাকে বাংলা বা Banglish-এ command দিতে পারো।
+    </div>
+  </div>
+
+  <div class="status" id="status">
+    Ready ✅
+  </div>
+
+  <div class="input-box">
+    <textarea
+      id="input"
+      placeholder="যেমন: একটা calculator app-এর code বানিয়ে দাও..."
+    ></textarea>
+
+    <button class="send" onclick="sendMessage()">
+      🚀 Send
+    </button>
+
+    <button class="clear" onclick="clearChat()">
+      🗑️ Clear Chat
+    </button>
+  </div>
+
+</main>
+
+<script>
+
+const API_URL = "এখানে পরে AI backend URL বসাবো";
+
+const input = document.getElementById("input");
+const chat = document.getElementById("chat");
+const statusText = document.getElementById("status");
+
+function addMessage(text,type){
+
+  const box = document.createElement("div");
+
+  box.className = "message " + type;
+
+  const label = document.createElement("div");
+
+  label.className = "label";
+
+  label.textContent =
+    type === "user" ? "You" : "PTJ AI";
+
+  const content = document.createElement("div");
+
+  content.textContent = text;
+
+  box.appendChild(label);
+  box.appendChild(content);
+
+  chat.appendChild(box);
+
+  chat.scrollTop = chat.scrollHeight;
+}
+
+async function sendMessage(){
+
+  const prompt = input.value.trim();
+
+  if(!prompt){
+    return;
+  }
+
+  addMessage(prompt,"user");
+
+  input.value = "";
+
+  statusText.textContent = "PTJ AI ভাবছে... 🤖";
+
+  /*
+    AI backend connection
+    পরের ধাপে এখানে backend URL বসাবো।
+  */
+
+  if(API_URL.startsWith("এখানে")){
+
+    setTimeout(()=>{
+
+      addMessage(
+        "PTJ AI-এর interface তৈরি হয়েছে ✅\n\nপরের ধাপে এটাকে আসল AI-এর সাথে connect করবো।",
+        "ai"
+      );
+
+      statusText.textContent = "Ready ✅";
+
+    },500);
+
+    return;
+  }
+
+  try{
+
+    const response = await fetch(API_URL,{
+      method:"POST",
+
+      headers:{
+        "Content-Type":"application/json"
+      },
+
+      body:JSON.stringify({
+        prompt:prompt
+      })
+    });
+
+    const data = await response.json();
+
+    if(!response.ok){
+
+      throw new Error(
+        data.error || "Server error"
+      );
+
+    }
+
+    addMessage(
+      data.reply || "কোনো response পাওয়া যায়নি।",
+      "ai"
+    );
+
+    statusText.textContent = "Ready ✅";
+
+  }catch(error){
+
+    addMessage(
+      "❌ Error:\n" + error.message,
+      "ai"
+    );
+
+    statusText.textContent = "Connection error ❌";
+  }
+}
+
+function clearChat(){
+
+  chat.innerHTML = `
+    <div class="message ai">
+      <div class="label">PTJ AI</div>
+      Chat cleared ✅<br>
+      আবার শুরু করি!
+    </div>
+  `;
+
+  statusText.textContent = "Ready ✅";
+}
+
+input.addEventListener("keydown",function(e){
+
+  if(e.key === "Enter" && !e.shiftKey){
+
+    e.preventDefault();
+
+    sendMessage();
+  }
+
+});
+
+</script>
+
+</body>
+</html>
