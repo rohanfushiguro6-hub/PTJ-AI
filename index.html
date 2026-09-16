@@ -256,8 +256,10 @@ async function sendMessage(){
     if(!response.ok){
 
       throw new Error(
-        data.error || "Server error"
-      );
+  typeof data.error === "object"
+    ? JSON.stringify(data.error)
+    : (data.error || "Server error")
+);
 
     }
 
