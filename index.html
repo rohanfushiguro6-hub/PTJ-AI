@@ -1,133 +1,119 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080b14">
-<title>PTJ AI</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-*{
-  box-sizing:border-box;
-}
+  <title>PTJ AI</title>
 
-body{
-  margin:0;
-  min-height:100vh;
-  background:#080b14;
-  color:white;
-  font-family:Arial,sans-serif;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-header{
-  text-align:center;
-  padding:28px 15px 18px;
-}
+    body {
+      margin: 0;
+      background: #0b1020;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
 
-.logo{
-  font-size:42px;
-}
+    header {
+      text-align: center;
+      padding: 22px 15px;
+      border-bottom: 1px solid #26304a;
+    }
 
-h1{
-  margin:5px 0;
-  font-size:30px;
-}
+    .logo {
+      font-size: 42px;
+    }
 
-.subtitle{
-  color:#9da7bd;
-  font-size:14px;
-}
+    h1 {
+      margin: 5px 0;
+    }
 
-main{
-  width:92%;
-  max-width:650px;
-  margin:auto;
-}
+    .subtitle {
+      color: #9aa4bd;
+      font-size: 14px;
+    }
 
-.chat{
-  background:#111725;
-  border:1px solid #263047;
-  border-radius:16px;
-  padding:15px;
-  min-height:420px;
-  max-height:60vh;
-  overflow-y:auto;
-}
+    main {
+      width: 94%;
+      max-width: 600px;
+      margin: 20px auto;
+    }
 
-.message{
-  padding:12px 14px;
-  margin:10px 0;
-  border-radius:13px;
-  line-height:1.5;
-  white-space:pre-wrap;
-  word-break:break-word;
-}
+    .chat {
+      height: 430px;
+      overflow-y: auto;
+      border: 1px solid #303a55;
+      border-radius: 15px;
+      padding: 15px;
+      background: #10172a;
+    }
 
-.ai{
-  background:#182033;
-  border:1px solid #2a3752;
-}
+    .message {
+      margin-bottom: 14px;
+      padding: 12px;
+      border-radius: 12px;
+      white-space: pre-wrap;
+      line-height: 1.5;
+    }
 
-.user{
-  background:#263047;
-  margin-left:12%;
-}
+    .message.ai {
+      background: #18223a;
+    }
 
-.label{
-  font-size:12px;
-  color:#9da7bd;
-  margin-bottom:4px;
-}
+    .message.user {
+      background: #243451;
+    }
 
-.input-box{
-  background:#111725;
-  border:1px solid #263047;
-  border-radius:16px;
-  padding:12px;
-  margin:15px 0;
-}
+    .label {
+      font-size: 12px;
+      color: #9aa4bd;
+      margin-bottom: 5px;
+    }
 
-textarea{
-  width:100%;
-  height:75px;
-  resize:none;
-  background:#0b1020;
-  color:white;
-  border:1px solid #303b55;
-  border-radius:11px;
-  padding:12px;
-  font-size:15px;
-  outline:none;
-}
+    .status {
+      text-align: center;
+      color: #8f9ab3;
+      font-size: 13px;
+      padding: 10px;
+    }
 
-button{
-  width:100%;
-  margin-top:9px;
-  padding:13px;
-  border:0;
-  border-radius:11px;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-}
+    textarea {
+      width: 100%;
+      min-height: 90px;
+      resize: vertical;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid #303a55;
+      background: #11192b;
+      color: white;
+      font-size: 15px;
+      outline: none;
+    }
 
-.send{
-  background:white;
-  color:#080b14;
-}
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 18px;
+      margin-top: 10px;
+      font-size: 15px;
+      cursor: pointer;
+    }
 
-.clear{
-  background:#263047;
-  color:white;
-}
+    .send {
+      background: #2563eb;
+      color: white;
+    }
 
-.status{
-  text-align:center;
-  color:#7f8aa0;
-  font-size:12px;
-  padding:8px;
-}
-</style>
+    .clear {
+      background: #30394f;
+      color: white;
+      margin-left: 6px;
+    }
+  </style>
 </head>
 
 <body>
@@ -144,7 +130,7 @@ button{
     <div class="message ai">
       <div class="label">PTJ AI</div>
       হ্যালো! 👋<br>
-      আমি PTJ AI। আমাকে বাংলা বা Banglish-এ command দিতে পারো।
+      আমি PTJ AI। বাংলা বা Banglish-এ command দিতে পারো।
     </div>
   </div>
 
@@ -152,46 +138,40 @@ button{
     Ready ✅
   </div>
 
-  <div class="input-box">
-    <textarea
-      id="input"
-      placeholder="যেমন: একটা calculator app-এর code বানিয়ে দাও..."
-    ></textarea>
+  <textarea
+    id="input"
+    placeholder="যেমন: Hello PTJ AI..."
+  ></textarea>
 
-    <button class="send" onclick="sendMessage()">
-      🚀 Send
-    </button>
+  <button class="send" onclick="sendMessage()">
+    🚀 Send
+  </button>
 
-    <button class="clear" onclick="clearChat()">
-      🗑️ Clear Chat
-    </button>
-  </div>
+  <button class="clear" onclick="clearChat()">
+    🗑️ Clear Chat
+  </button>
 
 </main>
 
 <script>
 
- const API_URL = "https://ptj-ai.rohanfushiguro6.workers.dev/";
+const API_URL = "https://ptj-ai.rohanfushiguro6.workers.dev/";
 
 const input = document.getElementById("input");
 const chat = document.getElementById("chat");
 const statusText = document.getElementById("status");
 
-function addMessage(text,type){
+
+function addMessage(text, type) {
 
   const box = document.createElement("div");
-
   box.className = "message " + type;
 
   const label = document.createElement("div");
-
   label.className = "label";
-
-  label.textContent =
-    type === "user" ? "You" : "PTJ AI";
+  label.textContent = type === "user" ? "You" : "PTJ AI";
 
   const content = document.createElement("div");
-
   content.textContent = text;
 
   box.appendChild(label);
@@ -202,75 +182,79 @@ function addMessage(text,type){
   chat.scrollTop = chat.scrollHeight;
 }
 
-async function sendMessage(){
+
+async function sendMessage() {
 
   const prompt = input.value.trim();
 
-  if(!prompt){
+  if (!prompt) {
     return;
   }
 
-  addMessage(prompt,"user");
+  addMessage(prompt, "user");
 
   input.value = "";
 
   statusText.textContent = "PTJ AI ভাবছে... 🤖";
 
-  /*
-    AI backend connection
-    পরের ধাপে এখানে backend URL বসাবো।
-  */
+  try {
 
-  if(API_URL.startsWith("এখানে")){
+    const response = await fetch(API_URL, {
 
-    setTimeout(()=>{
+      method: "POST",
 
-      addMessage(
-        "PTJ AI-এর interface তৈরি হয়েছে ✅\n\nপরের ধাপে এটাকে আসল AI-এর সাথে connect করবো।",
-        "ai"
-      );
-
-      statusText.textContent = "Ready ✅";
-
-    },500);
-
-    return;
-  }
-
-  try{
-
-    const response = await fetch(API_URL,{
-      method:"POST",
-
-      headers:{
-        "Content-Type":"application/json"
+      headers: {
+        "Content-Type": "application/json"
       },
 
-      body:JSON.stringify({
-        prompt:prompt
+      body: JSON.stringify({
+        prompt: prompt
       })
+
     });
 
-    const data = await response.json();
 
-    if(!response.ok){
+    const rawText = await response.text();
 
-      throw new Error(
-  typeof data.error === "object"
-    ? JSON.stringify(data.error)
-    : (data.error || "Server error")
-);
+    let data;
 
+    try {
+      data = JSON.parse(rawText);
+    } catch {
+      data = {
+        error: rawText
+      };
     }
 
-    addMessage(
-      data.reply || "কোনো response পাওয়া যায়নি।",
-      "ai"
-    );
+
+    if (!response.ok) {
+
+      let errorMessage;
+
+      if (typeof data.error === "string") {
+        errorMessage = data.error;
+      } else {
+        errorMessage = JSON.stringify(data.error ?? data, null, 2);
+      }
+
+      throw new Error(
+        "HTTP " + response.status + "\n" + errorMessage
+      );
+    }
+
+
+    const reply =
+      typeof data.reply === "string"
+        ? data.reply
+        : JSON.stringify(data, null, 2);
+
+
+    addMessage(reply, "ai");
 
     statusText.textContent = "Ready ✅";
 
-  }catch(error){
+
+  } catch (error) {
 
     addMessage(
       "❌ Error:\n" + error.message,
@@ -278,10 +262,13 @@ async function sendMessage(){
     );
 
     statusText.textContent = "Connection error ❌";
+
   }
+
 }
 
-function clearChat(){
+
+function clearChat() {
 
   chat.innerHTML = `
     <div class="message ai">
@@ -294,13 +281,15 @@ function clearChat(){
   statusText.textContent = "Ready ✅";
 }
 
-input.addEventListener("keydown",function(e){
 
-  if(e.key === "Enter" && !e.shiftKey){
+input.addEventListener("keydown", function(e) {
+
+  if (e.key === "Enter" && !e.shiftKey) {
 
     e.preventDefault();
 
     sendMessage();
+
   }
 
 });
